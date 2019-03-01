@@ -26,9 +26,6 @@ def sim(n):
 		if len(prices)==0:
 			prices.append(2.5)
 		else:
-			if prices[i-1]<0.50:
-				prices.append(normal(30,0.025))
-			else:
 				prices.append(round(prices[i-1]+normal(30,0.025),4))
 	while len(clone)!=1:
 				for i in range(4):
