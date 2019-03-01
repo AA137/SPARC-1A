@@ -26,12 +26,15 @@ def sim(n):
 		if len(prices)==0:
 			prices.append(2.5)
 		else:
-			prices.append(round(prices[i-1]+normal(30,0.025),4))
+			if prices[i-1]<0.50:
+				prices.append(normal(30,0.025))
+			else:
+				prices.append(round(prices[i-1]+normal(30,0.025),4))
 	while len(clone)!=1:
 				for i in range(4):
 					for p in clone:
 						quotedic.update({p:(round(prices[weekno]+meandic[p]+normal(30,0.015),4), weekno)})
-						idealcost+=(prices[weekno]+minmean)
+						idealcost+=(prices[weekno]+minmean+normal(30,0.015))
 						cost+=quotedic[p][0]
 						weekno+=1
 				for p in clone:
@@ -48,8 +51,8 @@ def sim(n):
 				quotedic={}
 				emadic={}
 	while weekno<1001:
-		cost+=round(prices[weekno]+meandic[p]+normal(30,0.015),4)
-		idealcost+=prices[weekno]+minmean
+		cost+=round(prices[weekno]+meandic[list(clone.keys())[0]]+normal(30,0.015),4)
+		idealcost+=prices[weekno]+minmean+normal(30,0.015)
 		weekno+=1
 	return 100*(cost/idealcost)-100
 
